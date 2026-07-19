@@ -1,0 +1,9 @@
+{
+  "name": "microfyxd-site",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://microfyxd-backend.vercel.app/api/:path*" }
+  ]
+}

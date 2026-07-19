@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #080c14;
+  --panel: #0e1420;
+  --border: #1c2535;
+  --text: #f0f4f8;
+  --muted: #9fb3c8;
+  --accent: #00e5ff;
+  --success: #00ff9d;
+  --warn: #ff9d00;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.card {
+  @apply rounded-lg border border-[#1c2535] bg-[#0e1420]/80 p-4;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-lg text-sm font-medium transition;
+}
+
+.btn-primary {
+  @apply bg-[#00e5ff] text-black hover:bg-[#00b4d8];
+}
+
+.btn-secondary {
+  @apply bg-[#1c2535] text-[#9fb3c8] hover:bg-[#243044];
+}
+
+input, textarea {
+  @apply bg-[#0e1420] border border-[#1c2535] rounded-lg px-3 py-2 text-[#f0f4f8] outline-none focus:border-[#00e5ff] transition;
+}
