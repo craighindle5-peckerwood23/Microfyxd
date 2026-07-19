@@ -24,7 +24,7 @@ interface EcuLog {
   rpm: number;
   coolant: number;
   throttle: number;
-  dtc: unknown;
+  dtc: string | null;
   created_at: string;
 }
 interface AgentState {
@@ -318,7 +318,7 @@ export default function Cockpit() {
                   <div key={log.id} className="p-2 rounded bg-[#080c14]/50 text-sm">
                     <div className="flex justify-between mb-1">
                       <span className="text-[#9fb3c8]">{new Date(log.created_at).toLocaleTimeString()}</span>
-                      {log.dtc && <span className="text-[#ff9d00]">⚠ DTC</span>}
+                      {log.dtc != null && <span className="text-[#ff9d00]">⚠ DTC</span>}
                     </div>
                     <div className="flex gap-3 text-xs font-mono">
                       <span>RPM: {log.rpm}</span>
