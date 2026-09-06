@@ -1,0 +1,19 @@
+{
+  "name": "@microfyxd/agent",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@langchain/langgraph": "^0.2.0",
+    "@langchain/openai": "^0.2.0"
+  },
+  "devDependencies": {
+    "typescript": "5.4.5"
+  }
+}
