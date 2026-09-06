@@ -3,7 +3,7 @@ import type { AgentStateType } from "../state.js";
 export async function groupTasksNode(state: AgentStateType): Promise<Partial<AgentStateType>> {
   const raw = Array.isArray(state.input) ? state.input : [];
   const grouped = raw.reduce<Record<string, unknown[]>>((acc, item) => {
-    const key = (item as Record<string, unknown>).unit || "unknown";
+    const key = String((item as Record<string, unknown>).unit || "unknown");
     if (!acc[key]) acc[key] = [];
     acc[key].push(item);
     return acc;

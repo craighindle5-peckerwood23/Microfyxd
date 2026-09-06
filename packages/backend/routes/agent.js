@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { SEVEN_LAWS, SYSTEM_HEADER } from "./agentData.js";
+import { SEVEN_LAWS, SYSTEM_HEADER } from "../agentData.js";
 
 const router = Router();
 
@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
   try {
     // Dynamic import of the agent engine
     // The agent package is resolved from node_modules/workspace
-    let runLangGraph: (input: string | Record<string, unknown>[]) => Promise<unknown>;
+    let runLangGraph;
 
     try {
       const agentMod = await import("@microfyxd/agent");
@@ -45,13 +45,13 @@ router.post("/", async (req, res) => {
 });
 
 // Inline fallback engine — runs the movement flow without the compiled agent package
-async function inlineEngine(input: string | Record<string, unknown>[]) {
+async function inlineEngine(input) {
   const raw = Array.isArray(input) ? input : [{ unit: "text", description: String(input), targetFile: "src/handler.ts" }];
 
   // 1. groupTasks
-  const groupedOutput: Record<string, unknown[]> = {};
+  const groupedOutput = {};
   for (const item of raw) {
-    const key = (item as Record<string, unknown>).unit || "unknown";
+    const key = String(item?.unit || "unknown");
     if (!groupedOutput[key]) groupedOutput[key] = [];
     groupedOutput[key].push(item);
   }
@@ -59,7 +59,7 @@ async function inlineEngine(input: string | Record<string, unknown>[]) {
   // 2. planning
   const firstGroup = Object.values(groupedOutput)[0];
   const task = firstGroup?.[0] ?? null;
-  const targetFile = ((task as Record<string, unknown>)?.targetFile as string) || "src/handler.ts";
+  const targetFile = String(task?.targetFile || "src/handler.ts");
   const plan = `Modify ${targetFile}`;
 
   // 3. writeCode

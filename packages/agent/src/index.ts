@@ -1,4 +1,5 @@
 export { SEVEN_LAWS, SYSTEM_HEADER, type Law } from "./constitution.js";
+import type { AgentStateType } from "./state.js";
 export { AgentGraphState, type AgentStateType } from "./state.js";
 export { AgentLogger, type LogEntry } from "./logger.js";
 export { app } from "./graph.js";

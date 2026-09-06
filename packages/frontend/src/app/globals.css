@@ -19,6 +19,75 @@ body {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+/* ─── Holographic animations ─────────────────────────────────────── */
+
+@keyframes holo-flicker {
+  0%, 100% { opacity: 0.92; }
+  7% { opacity: 0.78; }
+  8% { opacity: 0.98; }
+  41% { opacity: 0.85; }
+  42% { opacity: 1; }
+  73% { opacity: 0.88; }
+  74% { opacity: 0.97; }
+}
+
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ring-spin-rev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes scan-move {
+  0% { transform: translateY(10px); opacity: 0; }
+  8% { opacity: 0.9; }
+  92% { opacity: 0.9; }
+  100% { transform: translateY(210px); opacity: 0; }
+}
+
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes core-breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes holo-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.holo-svg .spin-ring { transform-box: fill-box; transform-origin: center; animation: ring-spin 14s linear infinite; }
+.holo-svg .spin-ring-rev { transform-box: fill-box; transform-origin: center; animation: ring-spin-rev 22s linear infinite; }
+.holo-svg .flicker { animation: holo-flicker 4.2s ease-in-out infinite; }
+.holo-svg .scanline { animation: scan-move 3.6s ease-in-out infinite; }
+.holo-svg .node { animation: node-pulse 2.4s ease-in-out infinite; }
+.holo-svg .core { animation: core-breathe 2.8s ease-in-out infinite; }
+.holo-svg.thinking .spin-ring { animation-duration: 3.5s; }
+.holo-svg.thinking .spin-ring-rev { animation-duration: 5s; }
+.holo-svg.thinking .node { animation-duration: 0.9s; }
+
+.view-enter { animation: holo-rise 0.35s ease-out both; }
+.status-live { animation: status-blink 2s ease-in-out infinite; }
+
+.holo-grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
 @layer components {
   .card {
     background-color: var(--panel);
@@ -26,6 +95,15 @@ body {
     border-radius: 0.5rem;
     padding: 1.25rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .holo-card {
+    background: linear-gradient(160deg, rgba(14, 20, 32, 0.85), rgba(8, 12, 20, 0.75));
+    border: 1px solid rgba(0, 229, 255, 0.18);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.05), inset 0 0 24px rgba(0, 229, 255, 0.03);
   }
 
   .btn {

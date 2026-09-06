@@ -3,7 +3,7 @@ import WebSocket from "ws";
 
 // Patch global WebSocket for Node 20 compat
 if (typeof globalThis.WebSocket === "undefined") {
-  (globalThis as Record<string, unknown>).WebSocket = WebSocket;
+  globalThis.WebSocket = WebSocket;
 }
 
 const url = process.env.SUPABASE_URL || "";

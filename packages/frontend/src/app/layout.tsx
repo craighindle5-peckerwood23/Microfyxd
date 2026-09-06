@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Microfyxd Cockpit',
-  description: 'Autonomous agent system cockpit UI',
+  title: 'Microfyxd OS',
+  description: 'Microfyxd OS — holographic presence interface for the autonomous agent system',
 };
 
 export default function RootLayout({
