@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { supabase } from "../supabase.js";
 import { SEVEN_LAWS, SYSTEM_HEADER } from "../agentData.js";
 
 const router = Router();
@@ -37,6 +38,18 @@ router.post("/", async (req, res) => {
       : Array.isArray(input) ? input : [input];
 
     const output = await runLangGraph(normalized);
+    // Persist movement log to agent_states (Supabase or local fallback store)
+    try {
+      for (const entry of output.logEntries || []) {
+        await supabase.from("agent_states").insert({ loop_step: entry.step, summary: entry.message });
+      }
+      await supabase.from("agent_states").insert({
+        loop_step: "movementComplete",
+        summary: `${output.branchName} — sandbox ${output.sandboxResult?.success ? "passed" : "failed"}${output.escalated ? " — escalated" : ""}`,
+      });
+    } catch (e) {
+      console.warn("[state-log] failed:", e.message);
+    }
     res.json({ ok: true, output });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
